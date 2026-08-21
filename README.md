@@ -62,6 +62,16 @@ In its default configuration, Petclinic uses an in-memory database (H2) which
 gets populated at startup with data. The h2 console is exposed at `http://localhost:8080/h2-console`,
 and it is possible to inspect the content of the database using the `jdbc:h2:mem:<uuid>` URL. The UUID is printed at startup to the console.
 
+## Actuator endpoint exposure (EPMCDMETST-61345)
+
+By default (no active Spring profile), only `/actuator/health` and `/actuator/info` are exposed. When running with the `dev` or `test` profile, all actuator endpoints are exposed.
+
+To run locally with the `dev` profile, for example:
+
+```bash
+SPRING_PROFILES_ACTIVE=dev ./mvnw spring-boot:run
+```
+
 A similar setup is provided for MySQL and PostgreSQL if a persistent database configuration is needed. Note that whenever the database type changes, the app needs to run with a different profile: `spring.profiles.active=mysql` for MySQL or `spring.profiles.active=postgres` for PostgreSQL. See the [Spring Boot documentation](https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.set-active-spring-profiles) for more detail on how to set the active profile.
 
 You can start MySQL or PostgreSQL locally with whatever installer works for your OS or use docker:
